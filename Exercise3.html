@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html >
+<style>
+table {
+    font-family: arial,sans-serif;
+    border-collapse: collapse; 
+    width: 100%;
+    
+}
+td, th {
+    border: 1px solid #cccccc;
+    padding: 8px; 
+}
+
+th{
+        font-weight: bold;
+        text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:hover {
+    background-color: black;
+    color: white;
+}
+</style>
+<script>
+    let sortDirection = false;
+    let personData = []
+    let tableData = [
+        { name: 'Dilan', age: 30 },
+        { name: 'Chris', age: 29 },
+        { name: 'Dolly', age: 27 },
+        { name: 'Cathy', age: 28 }
+    ];  
+
+    window.onload = () => {
+        loadTableData(personData);
+    };
+
+    function loadTableData(personData) {
+        const tableBody = document.getElementById('tableData');
+        let dataHtml = '';
+
+        for(let person of tableData) {
+            dataHtml += '<tr><td>Dilan</td><td>30</td></tr>';
+            dataHtml += '<tr><td>Chris</td><td>29</td></tr>';
+        }
+        
+        
+        tableBody.innerHTML = dataHtml;
+
+
+        
+    }
+    function sortcolumn(columnName) {
+        const dataType = typeof personData[0][columnName];
+        sortDirection = !sortDirection;
+
+        switch(dataType) {
+            case 'number':
+            sortNumberColumn(sortDirection, columnName);
+            break;
+        }
+
+        loadTableData(personData);
+    }
+
+    function sortNumberColumn(sort, columnName) {
+        tableData = tableData.sort((p1, p2) => {
+            return sort ? p1[columnName] -p2[columnName] : p2[columnName] -p1[columnName]
+        });
+    }
+</script>
+<body>
+<table>
+    <thead>
+    <tr> 
+    <th>Name</th>
+    <th onclick="sortcolumn('age')">Age</th> 
+    </tr>
+    </thead>
+    <tbody id="tableData"></tbody>
+
+</table>
+</body>
+</html>
+
+
+
+
